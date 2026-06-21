@@ -210,14 +210,13 @@ header{
     transform:translateY(-3px);
 }
 
-.mission-panel{
-    z-index:100;
-}
+/* ======================
+   SOLAR SYSTEM
+====================== */
 
 #solar-system{
     position:absolute;
     inset:0;
-    z-index:1;
 }
 
 /* ======================
@@ -326,11 +325,18 @@ header{
 
 .mission-panel{
     position:absolute;
+
     left:320px;
+
     right:340px;
+
     bottom:20px;
+
     height:180px;
+
     overflow-y:auto;
+
+    transform:none;
 }
 
 .mission-panel h2{
@@ -397,4 +403,67 @@ header{
     font-size:.9rem;
     opacity:.8;
 }
+/* ======================
+   EXPLORATION VIEW
+====================== */
 
+#exploration-view {
+    animation: fadeIn 0.5s ease;
+}
+
+#exploration-view .planet-info-overlay {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(15px);
+    padding: 20px 40px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,255,255,0.3);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    z-index: 1001;
+    max-width: 500px;
+}
+
+#exploration-view .planet-info-overlay h3 {
+    color: #00ffff;
+    margin-bottom: 10px;
+}
+
+#exploration-view .planet-info-overlay p {
+    opacity: 0.8;
+    font-size: 14px;
+}
+
+#exploration-view .planet-stats-overlay {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#exploration-view .planet-stats-overlay div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#exploration-view .planet-stats-overlay .stat-label {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+#exploration-view .planet-stats-overlay .stat-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffd93d;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

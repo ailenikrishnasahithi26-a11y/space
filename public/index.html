@@ -18,21 +18,25 @@
 </head>
 
 <body>
+<body>
+    <!-- Audio Element for Background Music -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="assets/audio/background-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
 <div id="stars"></div>
 
 <header>
-
     <div class="logo">
         🚀 GALACTIC ODYSSEY
     </div>
 
     <div class="header-actions">
-        <button>🔊</button>
-        <button>⛶</button>
-        <button>⚙</button>
+        <button id="musicToggle">🔊</button>
+        <button id="fullscreenBtn">⛶</button>
+        <button id="settingsBtn">⚙</button>
     </div>
-
 </header>
 
 <!-- LEFT PANEL -->
@@ -160,6 +164,19 @@
 
     </div>
 
+</div>
+<!-- EXPLORATION VIEW (Hidden by default) -->
+<div id="exploration-view" style="display: none; position: fixed; inset: 0; z-index: 1000; background: #050816;">
+    <div style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1001; display: flex; gap: 20px; align-items: center;">
+        <h2 id="exploration-title" style="color: #00ffff; font-family: 'Poppins', sans-serif; text-shadow: 0 0 20px rgba(0,255,255,0.5);">Exploring Earth</h2>
+        <button id="exit-exploration" style="padding: 10px 20px; background: rgba(255,0,0,0.3); border: 1px solid #ff4444; color: white; border-radius: 10px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; backdrop-filter: blur(10px);">
+            ✕ Exit
+        </button>
+    </div>
+    <div id="exploration-container" style="width: 100%; height: 100%;"></div>
+    <div style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 1001; text-align: center; color: rgba(255,255,255,0.5); font-family: 'Poppins', sans-serif; font-size: 14px;">
+        🖱️ Drag to rotate • Scroll to zoom • Right-click to pan
+    </div>
 </div>
 
 <!-- CONTROLS -->

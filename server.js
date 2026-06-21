@@ -84,54 +84,46 @@ const planets = [
   }
 ];
 
-const missions = [
+let missions = [
   {
     id: 1,
     title: "Solar Heat Scan",
     location: "Mercury",
-    reward: 100
+    reward: 100,
+    unlocked: true,
+    completed: false
   },
   {
     id: 2,
     title: "Atmosphere Analysis",
     location: "Venus",
-    reward: 150
+    reward: 150,
+    unlocked: false,
+    completed: false
   },
   {
     id: 3,
     title: "Launch Preparation",
     location: "Earth",
-    reward: 200
+    reward: 200,
+    unlocked: false,
+    completed: false
   },
   {
     id: 4,
     title: "Search For Water",
     location: "Mars",
-    reward: 300
+    reward: 300,
+    unlocked: false,
+    completed: false
   },
   {
     id: 5,
     title: "Great Red Spot Study",
     location: "Jupiter",
-    reward: 450
-  },
-  {
-    id: 6,
-    title: "Ring Mapping Mission",
-    location: "Saturn",
-    reward: 600
-  },
-  {
-    id: 7,
-    title: "Ice Giant Research",
-    location: "Uranus",
-    reward: 800
-  },
-  {
-    id: 8,
-    title: "Deep Space Signal Detection",
-    location: "Neptune",
-    reward: 1000
+    reward: 450,
+    unlocked: false,
+    completed: false
   }
 ];
 
@@ -258,6 +250,58 @@ app.post("/api/reset", (req, res) => {
     player
   });
 });
+app.post("/api/complete-mission", (req, res) => {
+
+  const { missionId } = req.body;
+
+  const mission = missions.find(
+    m => m.id === missionId
+  );
+
+  if (!mission) {
+    return res.status(404).json({
+      success: false,
+      message: "Mission not found"
+    });
+  }
+
+  if (!mission.unlocked) {
+    return res.status(400).json({
+      success: false,
+      message: "Mission is locked"
+    });
+  }
+
+  if (mission.completed) {
+    return res.status(400).json({
+      success: false,
+      message: "Mission already completed"
+    });
+  }
+
+  mission.completed = true;
+
+  player.xp += mission.reward;
+  player.credits += mission.reward;
+
+  const nextMission = missions.find(
+    m => m.id === missionId + 1
+  );
+
+  if (nextMission) {
+    nextMission.unlocked = true;
+  }
+
+  updateRank();
+
+  res.json({
+    success: true,
+    message: "Mission Completed!",
+    missions,
+    player
+  });
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
